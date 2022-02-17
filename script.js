@@ -1,115 +1,84 @@
-let nombre;
-let apellido;
-let telefono;
-let correo;
-let turno;
-let turnoLun = 4;
-let turnoMar = 7;
-let turnoMie = 6;
-let turnoJue = 0;
-let turnoVie = 2;
-let turnoSacado;
-let respUno = "y";
-let respDos = "n";
+let turnoLun = 4
+let turnoMar = 7
+let turnoMie = 6
+let turnoJue = 0
+let turnoVie = 2
+//la idea para estas primeras variables es que conformen el objeto 'dias' cuando lo incorpore//
+let respUno = "y"
+let respDos = "n"
+let turnoSacado 
+const sacarTurno = function(a) {
+    if (a > 0){
+        a = a - 1
+        alert("Quedan " + a + " turnos disponibles para este día.")
+        return a
+    }
+    else {
+        alert("No quedan turnos disponibles para ese día.")
+        turnoSacado = false
+    }
+}
 
 alert("Bienvenidx al sistema de turnos")
-
 while(respUno == "y"){
 
     while(respDos == "n"){
         turnoSacado = true
+        let nombre
+        let apellido
+        let correo
+        let telefono
+        let turno
+        //la idea para este grupo de variables es que conformen el objeto 'turno' cuando lo incorpore//
         for (let i = 0; i < 5; i++){
             switch (i) {
                 case 0:
-                    nombre = prompt("Ingrese su nombre");
-                    break;
+                    nombre = prompt("Ingrese su nombre")
+                    break
                 case 1:
-                    apellido = prompt("Ingrese su apellido");
-                    break;
+                    apellido = prompt("Ingrese su apellido")
+                    break
                 case 2: 
-                    correo = prompt("Ingrese su correo");
-                    break;
+                    correo = prompt("Ingrese su correo")
+                    break
                 case 3:
-                    telefono = prompt("Ingrese su número de teléfono");
-                    break;
+                    telefono = prompt("Ingrese su número de teléfono")
+                    break
                 case 4: 
-                    turno = prompt("Ingrese el día que desea su turno (lunes a viernes)");
+                    turno = prompt("Ingrese el día que desea su turno (lunes a viernes)")
 
                     switch (turno) {
                         case "lunes":
-                            if (turnoLun > 0){
-                                turnoLun = turnoLun - 1;
-                                alert("Quedan " + turnoLun + " turnos disponibles para este día.")
-                            }
-                            else {
-                                alert("No quedan turnos disponibles para ese día")
-                                turnoSacado = false
-                            }
-                            break;
+                            turnoLun = sacarTurno(turnoLun)
+                            break
                         case "martes":
-                            if (turnoMar > 0){
-                                turnoMar = turnoMar - 1;
-                                alert("Quedan " + turnoMar + " turnos disponibles para este día.")
-                            }
-                            else {
-                                alert("No quedan turnos disponibles para ese día")
-                                turnoSacado = false
-                            }
-                            break;
+                            turnoMar = sacarTurno(turnoMar)
+                            break
                         case "miercoles":
-                            if (turnoMie > 0){
-                                turnoMie = turnoMie - 1;
-                                alert("Quedan " + turnoMie + " turnos disponibles para este día.")
-                            }
-                            else {
-                                alert("No quedan turnos disponibles para ese día")
-                                turnoSacado = false
-                            }
-                            break;
+                            turnoMie = sacarTurno(turnoMie)
+                            break
                         case "jueves":
-                            if (turnoJue > 0){
-                                turnoJue = turnoJue - 1;
-                                alert("Quedan " + turnoJue + " turnos disponibles para este día.")
-                            }
-                            else {
-                                alert("No quedan turnos disponibles para ese día")
-                                turnoSacado = false
-                            }
-                            break;
+                            turnoJue = sacarTurno(turnoJue)
+                            break
                         case "viernes":
-                            if (turnoVie > 0){
-                                turnoVie = turnoVie - 1;
-                                alert("Quedan " + turnoVie + " turnos disponibles para este día.")
-                            }
-                            else {
-                                alert("No quedan turnos disponibles para ese día")
-                                turnoSacado = false
-                            }
-                            break;
+                            turnoVie = sacarTurno(turnoVie)
+                            break
                         default:
                             alert("No es un día de la semana.")
                             turnoSacado = false
-                            break;
-                    }
-                   
-                    break;
+                            break
+                    }      
+                    break
             }
-
-        }
-        
+        }  
         if (turnoSacado == true) {
-        respDos = prompt("Usted solicitó un turno a nombre de " + nombre + " " + apellido + " teléfono " + telefono + " correo " + correo + " para el día " + turno + ". Ingrese 'y' para confirmar sus datos o 'n' para volver a comenzar.");
-    
+            respDos = prompt("Usted solicitó un turno a nombre de " + nombre + " " + apellido + " teléfono " + telefono + " correo " + correo + " para el día " + turno + ". Ingrese 'y' para confirmar sus datos o 'n' para volver a comenzar.")  
         }
         else {
-            
             respDos = "n"
         }
-
     }
     respDos = "n"
-    respUno = prompt("¿Desea solicitar otro turno? Ingrese 'y' para confirmar o 'n' para finalizar.")
-    
+    respUno = prompt("¿Desea solicitar otro turno? Ingrese 'y' para confirmar o 'n' para finalizar.")   
 }
-
 alert("Gracias por utilizar nuestro sistema :)")
