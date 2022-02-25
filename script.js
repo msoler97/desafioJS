@@ -1,67 +1,71 @@
-let turnoLun = 4
-let turnoMar = 7
-let turnoMie = 6
-let turnoJue = 0
-let turnoVie = 2
-//la idea para estas primeras variables es que conformen el objeto 'dias' cuando lo incorpore//
 let respUno = "y"
 let respDos = "n"
 let turnoSacado 
-const sacarTurno = function(a) {
-    if (a > 0){
-        a = a - 1
-        alert("Quedan " + a + " turnos disponibles para este día.")
-        return a
+const sacarTurno = function(cantidadTurnos) {
+    if (cantidadTurnos > 0){
+        cantidadTurnos = cantidadTurnos - 1
+        alert("Quedan " + cantidadTurnos + " turnos disponibles para este día.")
+        return cantidadTurnos
     }
     else {
         alert("No quedan turnos disponibles para ese día.")
         turnoSacado = false
     }
 }
+const diasDisponibles = [4,7,6,0,2]
+
+class turnoDos{
+    constructor(){}
+}
+class Turno{
+    constructor(nombre, apellido, correo, telefono, dia){
+    this.nombre = nombre
+    this.apellido = apellido
+    this.correo = correo
+    this.telefono = telefono
+    this.dia = dia
+    }
+}
+
 
 alert("Bienvenidx al sistema de turnos")
 while(respUno == "y"){
 
     while(respDos == "n"){
         turnoSacado = true
-        let nombre
-        let apellido
-        let correo
-        let telefono
-        let turno
-        //la idea para este grupo de variables es que conformen el objeto 'turno' cuando lo incorpore//
+        datosTurno = new turnoDos()
         for (let i = 0; i < 5; i++){
             switch (i) {
                 case 0:
-                    nombre = prompt("Ingrese su nombre")
+                    datosTurno.nombre = prompt("Ingrese su nombre")
                     break
                 case 1:
-                    apellido = prompt("Ingrese su apellido")
+                    datosTurno.apellido = prompt("Ingrese su apellido")
                     break
                 case 2: 
-                    correo = prompt("Ingrese su correo")
+                    datosTurno.correo = prompt("Ingrese su correo")
                     break
                 case 3:
-                    telefono = prompt("Ingrese su número de teléfono")
+                    datosTurno.telefono = prompt("Ingrese su número de teléfono")
                     break
                 case 4: 
-                    turno = prompt("Ingrese el día que desea su turno (lunes a viernes)")
+                    datosTurno.dia = prompt("Ingrese el día que desea su turno (lunes a viernes)")
 
-                    switch (turno) {
+                    switch (datosTurno.dia) {
                         case "lunes":
-                            turnoLun = sacarTurno(turnoLun)
+                            diasDisponibles[0] = sacarTurno(diasDisponibles[0])
                             break
                         case "martes":
-                            turnoMar = sacarTurno(turnoMar)
+                            diasDisponibles[1] = sacarTurno(diasDisponibles[1])
                             break
                         case "miercoles":
-                            turnoMie = sacarTurno(turnoMie)
+                            diasDisponibles[2] = sacarTurno(diasDisponibles[2])
                             break
                         case "jueves":
-                            turnoJue = sacarTurno(turnoJue)
+                            diasDisponibles[3] = sacarTurno(diasDisponibles[3])
                             break
                         case "viernes":
-                            turnoVie = sacarTurno(turnoVie)
+                            diasDisponibles[4] = sacarTurno(diasDisponibles[4])
                             break
                         default:
                             alert("No es un día de la semana.")
@@ -72,13 +76,16 @@ while(respUno == "y"){
             }
         }  
         if (turnoSacado == true) {
-            respDos = prompt("Usted solicitó un turno a nombre de " + nombre + " " + apellido + " teléfono " + telefono + " correo " + correo + " para el día " + turno + ". Ingrese 'y' para confirmar sus datos o 'n' para volver a comenzar.")  
+            const nuevoTurno = new Turno(datosTurno.nombre, datosTurno.apellido, datosTurno.correo, datosTurno.telefono, datosTurno.dia)
+            respDos = prompt("Usted solicitó un turno a nombre de " + nuevoTurno.nombre + " " + nuevoTurno.apellido + " teléfono " + nuevoTurno.telefono + " correo " + nuevoTurno.correo + " para el día " + nuevoTurno.dia + ". Ingrese 'y' para confirmar sus datos o 'n' para volver a comenzar.")  
         }
         else {
             respDos = "n"
         }
     }
+    
     respDos = "n"
     respUno = prompt("¿Desea solicitar otro turno? Ingrese 'y' para confirmar o 'n' para finalizar.")   
 }
+
 alert("Gracias por utilizar nuestro sistema :)")
