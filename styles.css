@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0; }
+  
+  .background {
+    background-image: url(fondo.png); }
+  
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; }
+    header img {
+      height: 100px;
+      margin-left: 10px;
+      margin-top: 10px;
+      transition: 1s all; }
+      header img:hover {
+        height: 110px;
+        margin-left: 5px; }
+    header .navlogo {
+      display: block;
+      width: 75%; }
+    header .navbar {
+      background-color: transparent !important; }
+  footer {
+    grid-area: footer;
+    text-align: right;
+    background-color: #f3d1e3; }
+    footer p {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      padding-top: 8px;
+      padding-right: 12px;
+      color: #1b1b1b;
+      margin-bottom: 0px; }
+  
+  form .botonEnviar {
+    background-color: #e971b1;
+    font-weight: bold;
+    margin-top: 60px;
+    margin-bottom: 16px;
+    margin-left: auto;
+    margin-right: auto; }
+  
+  form .botonForm {
+    display: flex; }
+  
+  form .campoForm, form .campoUno, form .campoDos {
+    background-color: #f3d1e3;
+    padding: 12px 60px 12px 60px;
+    border-style: solid;
+    border-width: thin;
+    border-color: white; }
+  
+  form .campoUno {
+    margin-right: 5px; }
+  
+  form .campoDos {
+    margin-left: 5px; }
+  
+  form .textoAclaracion {
+    font-size: x-small !important;
+    color: gray; }
+  
+  main .titulos {
+    color: #0d0d0e;
+    font-size: 46px;
+    font-family: 'Berkshire Swash', cursive;
+    font-weight: 600;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px; }
+  
+  main .parrafos, main form .textoAclaracion, form main .textoAclaracion {
+    font-size: large;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-weight: light;
+    color: #0d0d0e;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px; }
+  

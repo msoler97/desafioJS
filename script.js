@@ -1,6 +1,8 @@
 let respUno = "y"
 let respDos = "n"
-let turnoSacado 
+let turnoSacado
+const arrayTurnos = []
+
 const sacarTurno = function(cantidadTurnos) {
     if (cantidadTurnos > 0){
         cantidadTurnos = cantidadTurnos - 1
@@ -12,12 +14,14 @@ const sacarTurno = function(cantidadTurnos) {
         turnoSacado = false
     }
 }
+
 const diasDisponibles = [4,7,6,0,2]
 
-class turnoDos{
+/*class turnoDos{
     constructor(){}
-}
-class Turno{
+}*/
+
+class turno{
     constructor(nombre, apellido, correo, telefono, dia){
     this.nombre = nombre
     this.apellido = apellido
@@ -29,11 +33,12 @@ class Turno{
 
 
 alert("Bienvenidx al sistema de turnos")
-while(respUno == "y"){
+do{
 
-    while(respDos == "n"){
+    do{
         turnoSacado = true
-        datosTurno = new turnoDos()
+        //datosTurno = new turnoDos()
+        datosTurno = new turno()
         for (let i = 0; i < 5; i++){
             switch (i) {
                 case 0:
@@ -76,16 +81,18 @@ while(respUno == "y"){
             }
         }  
         if (turnoSacado == true) {
-            const nuevoTurno = new Turno(datosTurno.nombre, datosTurno.apellido, datosTurno.correo, datosTurno.telefono, datosTurno.dia)
-            respDos = prompt("Usted solicitó un turno a nombre de " + nuevoTurno.nombre + " " + nuevoTurno.apellido + " teléfono " + nuevoTurno.telefono + " correo " + nuevoTurno.correo + " para el día " + nuevoTurno.dia + ". Ingrese 'y' para confirmar sus datos o 'n' para volver a comenzar.")  
+            respDos = prompt("Usted solicitó un turno a nombre de " + datosTurno.nombre + " " + datosTurno.apellido + " teléfono " + datosTurno.telefono + " correo " + datosTurno.correo + " para el día " + datosTurno.dia + ". Ingrese 'y' para confirmar sus datos o 'n' para volver a comenzar.")
+            if (respDos == "y") {
+            arrayTurnos.push(datosTurno)
+            }
         }
         else {
             respDos = "n"
         }
-    }
+    } while(respDos == "n")
     
     respDos = "n"
     respUno = prompt("¿Desea solicitar otro turno? Ingrese 'y' para confirmar o 'n' para finalizar.")   
-}
-
+} while(respUno == "y")
+alert("Se sacaron " + arrayTurnos.length + " turnos.")
 alert("Gracias por utilizar nuestro sistema :)")
