@@ -34,7 +34,7 @@
       color: #1b1b1b;
       margin-bottom: 0px; }
   
-  form .botonEnviar {
+      .botonEnviar {
     background-color: #e971b1;
     font-weight: bold;
     margin-top: 60px;
@@ -80,4 +80,12 @@
     margin-left: auto;
     margin-right: auto;
     padding-bottom: 20px; }
+
+  .ocultarElementos { 
+    visibility: hidden;
+  }
+
+  .parrafoVisible {
+    visibility: visible !important;
+  }
   
