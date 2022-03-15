@@ -1,98 +1,53 @@
-let respUno = "y"
-let respDos = "n"
-let turnoSacado
-const arrayTurnos = []
+let datosTurno
 
-const sacarTurno = function(cantidadTurnos) {
-    if (cantidadTurnos > 0){
-        cantidadTurnos = cantidadTurnos - 1
-        alert("Quedan " + cantidadTurnos + " turnos disponibles para este día.")
-        return cantidadTurnos
-    }
-    else {
-        alert("No quedan turnos disponibles para ese día.")
-        turnoSacado = false
-    }
-}
-
-const diasDisponibles = [4,7,6,0,2]
-
-/*class turnoDos{
-    constructor(){}
-}*/
-
-class turno{
-    constructor(nombre, apellido, correo, telefono, dia){
+class Turno{
+    constructor(nombre, telefono, usuario, servicio, fecha, horario){
     this.nombre = nombre
-    this.apellido = apellido
-    this.correo = correo
     this.telefono = telefono
-    this.dia = dia
+    this.usuario = usuario
+    this.servicio = servicio
+    this.fecha = fecha
+    this.horario = horario
     }
 }
 
+let divNombre = document.getElementById("divNombre")
+const nombreIngresado = divNombre.childNodes[3]
 
-alert("Bienvenidx al sistema de turnos")
-do{
+let divTelefono = document.getElementById("divTelefono")
+const telefonoIngresado = divTelefono.childNodes[3]
 
-    do{
-        turnoSacado = true
-        //datosTurno = new turnoDos()
-        datosTurno = new turno()
-        for (let i = 0; i < 5; i++){
-            switch (i) {
-                case 0:
-                    datosTurno.nombre = prompt("Ingrese su nombre")
-                    break
-                case 1:
-                    datosTurno.apellido = prompt("Ingrese su apellido")
-                    break
-                case 2: 
-                    datosTurno.correo = prompt("Ingrese su correo")
-                    break
-                case 3:
-                    datosTurno.telefono = prompt("Ingrese su número de teléfono")
-                    break
-                case 4: 
-                    datosTurno.dia = prompt("Ingrese el día que desea su turno (lunes a viernes)")
+let divUsuario = document.getElementById("divUsuario")
+const usuarioIngresado = divUsuario.childNodes[3]
 
-                    switch (datosTurno.dia) {
-                        case "lunes":
-                            diasDisponibles[0] = sacarTurno(diasDisponibles[0])
-                            break
-                        case "martes":
-                            diasDisponibles[1] = sacarTurno(diasDisponibles[1])
-                            break
-                        case "miercoles":
-                            diasDisponibles[2] = sacarTurno(diasDisponibles[2])
-                            break
-                        case "jueves":
-                            diasDisponibles[3] = sacarTurno(diasDisponibles[3])
-                            break
-                        case "viernes":
-                            diasDisponibles[4] = sacarTurno(diasDisponibles[4])
-                            break
-                        default:
-                            alert("No es un día de la semana.")
-                            turnoSacado = false
-                            break
-                    }      
-                    break
-            }
-        }  
-        if (turnoSacado == true) {
-            respDos = prompt("Usted solicitó un turno a nombre de " + datosTurno.nombre + " " + datosTurno.apellido + " teléfono " + datosTurno.telefono + " correo " + datosTurno.correo + " para el día " + datosTurno.dia + ". Ingrese 'y' para confirmar sus datos o 'n' para volver a comenzar.")
-            if (respDos == "y") {
-            arrayTurnos.push(datosTurno)
-            }
-        }
-        else {
-            respDos = "n"
-        }
-    } while(respDos == "n")
-    
-    respDos = "n"
-    respUno = prompt("¿Desea solicitar otro turno? Ingrese 'y' para confirmar o 'n' para finalizar.")   
-} while(respUno == "y")
-alert("Se sacaron " + arrayTurnos.length + " turnos.")
-alert("Gracias por utilizar nuestro sistema :)")
+const servicioIngresado = document.getElementById("selectorServicio")
+
+const fechaIngresada = document.getElementById("selectorDia")
+
+const horaIngresada = document.getElementById("selectorHorario")
+
+const formularioCompleto = document.getElementById("formulario")
+formularioCompleto.addEventListener('submit', (event)=>{
+event.preventDefault()
+datosTurno = new Turno(nombreIngresado.value, telefonoIngresado.value, usuarioIngresado.value, servicioIngresado.value, fechaIngresada.valueAsDate, horaIngresada.value)
+let pantallaForm = document.getElementById("mainTurnos")
+pantallaForm.classList.add("ocultarElementos")
+let turnoSacado = document.createElement("p")
+let confirmacionTurno = `Usted solicitó un turno a nombre de ${datosTurno.nombre}, teléfono ${datosTurno.telefono}, usuario @${datosTurno.usuario} para el servicio ${datosTurno.servicio} el día ${datosTurno.fecha.getDate()} a las ${datosTurno.horario} hs. 
+Dentro de las próximas 48 horas recibirá una confirmación. Muchas gracias.
+`
+turnoSacado.innerText = confirmacionTurno
+turnoSacado.className = "parrafos"
+turnoSacado.classList.add("parrafoVisible")
+document.getElementById("texto").append(turnoSacado)
+let confirmar = document.createElement("button")
+confirmar.innerText = "Cerrar"
+confirmar.className = "botonEnviar"
+confirmar.classList.add("parrafoVisible")
+confirmar.classList.add("btn-secondary")
+confirmar.classList.add("btn-lg")
+turnoSacado.append(confirmar)
+confirmar.addEventListener('click', ()=>{
+    formularioCompleto.submit()
+})
+    }) 
