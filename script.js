@@ -1,5 +1,12 @@
 let datosTurno
 
+let arrayTurnos = []
+
+if(localStorage.getItem("turnos") != null){
+let jsonParseado = JSON.parse(localStorage.getItem("turnos"))
+arrayTurnos = jsonParseado
+}
+
 class Turno{
     constructor(nombre, telefono, usuario, servicio, fecha, horario){
     this.nombre = nombre
@@ -28,26 +35,28 @@ const horaIngresada = document.getElementById("selectorHorario")
 
 const formularioCompleto = document.getElementById("formulario")
 formularioCompleto.addEventListener('submit', (event)=>{
-event.preventDefault()
-datosTurno = new Turno(nombreIngresado.value, telefonoIngresado.value, usuarioIngresado.value, servicioIngresado.value, fechaIngresada.valueAsDate, horaIngresada.value)
-let pantallaForm = document.getElementById("mainTurnos")
-pantallaForm.classList.add("ocultarElementos")
-let turnoSacado = document.createElement("p")
-let confirmacionTurno = `Usted solicitó un turno a nombre de ${datosTurno.nombre}, teléfono ${datosTurno.telefono}, usuario @${datosTurno.usuario} para el servicio ${datosTurno.servicio} el día ${datosTurno.fecha.getDate()} a las ${datosTurno.horario} hs. 
-Dentro de las próximas 48 horas recibirá una confirmación. Muchas gracias.
-`
-turnoSacado.innerText = confirmacionTurno
-turnoSacado.className = "parrafos"
-turnoSacado.classList.add("parrafoVisible")
-document.getElementById("texto").append(turnoSacado)
-let confirmar = document.createElement("button")
-confirmar.innerText = "Cerrar"
-confirmar.className = "botonEnviar"
-confirmar.classList.add("parrafoVisible")
-confirmar.classList.add("btn-secondary")
-confirmar.classList.add("btn-lg")
-turnoSacado.append(confirmar)
-confirmar.addEventListener('click', ()=>{
-    formularioCompleto.submit()
-})
-    }) 
+    event.preventDefault()
+    let formatoDia = fechaIngresada.valueAsDate
+    formatoDia.setMinutes(formatoDia.getMinutes() + formatoDia.getTimezoneOffset())
+    datosTurno = new Turno(nombreIngresado.value, telefonoIngresado.value, usuarioIngresado.value, servicioIngresado.value, formatoDia, horaIngresada.value)
+    let pantallaForm = document.getElementById("mainTurnos")
+    pantallaForm.classList.add("ocultarElementos")
+    let turnoSacado = document.createElement("p")
+    let confirmacionTurno = `Usted solicitó un turno a nombre de ${datosTurno.nombre}, teléfono ${datosTurno.telefono}, usuario @${datosTurno.usuario} para el servicio ${datosTurno.servicio} el día ${datosTurno.fecha.getDate()}/${datosTurno.fecha.getMonth() + 1} a las ${datosTurno.horario} hs. 
+    Dentro de las próximas 48 horas recibirá una confirmación. Muchas gracias.
+    `
+    turnoSacado.innerText = confirmacionTurno
+    turnoSacado.classList.add("parrafos", "parrafoVisible")
+    document.getElementById("texto").append(turnoSacado)
+    let confirmar = document.createElement("button")
+    confirmar.innerText = "Cerrar"
+    confirmar.classList.add("botonEnviar", "parrafoVisible", "btn-secondary", "btn-lg")
+    turnoSacado.append(confirmar)
+    confirmar.addEventListener('click', ()=>{
+        arrayTurnos.push(datosTurno)
+        console.log(arrayTurnos)
+        let arrayJson = JSON.stringify(arrayTurnos)
+        localStorage.setItem("turnos", arrayJson)
+        formularioCompleto.submit()
+    })
+}) 
