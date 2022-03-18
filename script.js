@@ -3,8 +3,8 @@ let datosTurno
 let arrayTurnos = []
 
 if(localStorage.getItem("turnos") != null){
-let jsonParseado = JSON.parse(localStorage.getItem("turnos"))
-arrayTurnos = jsonParseado
+    let jsonParseado = JSON.parse(localStorage.getItem("turnos"))
+    arrayTurnos = jsonParseado
 }
 
 class Turno{
