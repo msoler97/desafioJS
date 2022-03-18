@@ -38,11 +38,10 @@ formularioCompleto.addEventListener('submit', (event)=>{
     event.preventDefault()
     let formatoDia = fechaIngresada.valueAsDate
     formatoDia.setMinutes(formatoDia.getMinutes() + formatoDia.getTimezoneOffset())
-    datosTurno = new Turno(nombreIngresado.value, telefonoIngresado.value, usuarioIngresado.value, servicioIngresado.value, formatoDia, horaIngresada.value)
     let pantallaForm = document.getElementById("mainTurnos")
     pantallaForm.classList.add("ocultarElementos")
     let turnoSacado = document.createElement("p")
-    let confirmacionTurno = `Usted solicitó un turno a nombre de ${datosTurno.nombre}, teléfono ${datosTurno.telefono}, usuario @${datosTurno.usuario} para el servicio ${datosTurno.servicio} el día ${datosTurno.fecha.getDate()}/${datosTurno.fecha.getMonth() + 1} a las ${datosTurno.horario} hs. 
+    let confirmacionTurno = `Usted solicitó un turno a nombre de ${nombreIngresado.value}, teléfono ${telefonoIngresado.value}, usuario @${usuarioIngresado.value} para el servicio ${servicioIngresado.value} el día ${formatoDia.getDate()}/${formatoDia.getMonth() + 1} a las ${horaIngresada.value} hs. 
     Dentro de las próximas 48 horas recibirá una confirmación. Muchas gracias.
     `
     turnoSacado.innerText = confirmacionTurno
@@ -53,6 +52,7 @@ formularioCompleto.addEventListener('submit', (event)=>{
     confirmar.classList.add("botonEnviar", "parrafoVisible", "btn-secondary", "btn-lg")
     turnoSacado.append(confirmar)
     confirmar.addEventListener('click', ()=>{
+        datosTurno = new Turno(nombreIngresado.value, telefonoIngresado.value, usuarioIngresado.value, servicioIngresado.value, formatoDia, horaIngresada.value)
         arrayTurnos.push(datosTurno)
         console.log(arrayTurnos)
         let arrayJson = JSON.stringify(arrayTurnos)
