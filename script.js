@@ -6,6 +6,8 @@ let arrayHoras = []
 
 let arrayTurnos = []
 
+let turnoDisponible 
+
 fetch('turnos.json')
         .then(resp => resp.json())
         .then(data => arrayTurnos = data)
@@ -22,9 +24,7 @@ class Turno{
 }
 
 function disponibilidad(fecha, hora){
-        console.log(fecha.length)
-        console.log(hora.length)
-        
+
         if(fecha.toString().length > 0 && hora.toString().length > 0) {
         fetch('turnos.json')
         .then(resp => resp.json())
@@ -32,11 +32,20 @@ function disponibilidad(fecha, hora){
 
             arrayFechas = data.filter(turno => turno.fecha.includes(fechaIngresada.value))
             arrayHoras = arrayFechas.filter(turno => turno.horario.includes(horaIngresada.value))
-
+            
             if(arrayHoras.length > 0){
-                alert("El turno seleccionado no está disponible")
-            }
-        })
+                turnoDisponible = false
+                swal({
+                    title: "Lo sentimos",
+                    text: "El turno seleccionado no está disponible",
+                    button:{
+                    text: "Aceptar",
+                    className:"botonEnviar"                
+                    }
+                })
+        }
+            else(turnoDisponible = true)
+    })
     }   
 
 }
@@ -75,6 +84,7 @@ formularioCompleto.addEventListener('submit', (event)=>{
 
     datosTurno = new Turno(nombreIngresado.value, telefonoIngresado.value, usuarioIngresado.value, servicioIngresado.value, formatoDia, horaIngresada.value)
      
+    if(turnoDisponible){
     arrayTurnos.push(datosTurno)
 
     fetch('https://httpbin.org/post', {
@@ -113,5 +123,5 @@ formularioCompleto.addEventListener('submit', (event)=>{
     confirmar.addEventListener('click', ()=>{
        
         formularioCompleto.submit()
-    })
+    }) }
 }) 
