@@ -1,11 +1,14 @@
 let datosTurno
 
+let arrayFechas = []
+
+let arrayHoras = []
+
 let arrayTurnos = []
 
-if(localStorage.getItem("turnos") != null){
-    let jsonParseado = JSON.parse(localStorage.getItem("turnos"))
-    arrayTurnos = jsonParseado
-}
+fetch('turnos.json')
+        .then(resp => resp.json())
+        .then(data => arrayTurnos = data)
 
 class Turno{
     constructor(nombre, telefono, usuario, servicio, fecha, horario){
@@ -18,10 +21,31 @@ class Turno{
     }
 }
 
-let divNombre = document.getElementById("divNombre")
-const nombreIngresado = divNombre.childNodes[3]
+function disponibilidad(fecha, hora){
+        console.log(fecha.length)
+        console.log(hora.length)
+        
+        if(fecha.toString().length > 0 && hora.toString().length > 0) {
+        fetch('turnos.json')
+        .then(resp => resp.json())
+        .then(data => {
 
+            arrayFechas = data.filter(turno => turno.fecha.includes(fechaIngresada.value))
+            arrayHoras = arrayFechas.filter(turno => turno.horario.includes(horaIngresada.value))
+
+            if(arrayHoras.length > 0){
+                alert("El turno seleccionado no está disponible")
+            }
+        })
+    }   
+
+}
+
+let divNombre = document.getElementById("divNombre")
+
+const nombreIngresado = divNombre.childNodes[3]
 let divTelefono = document.getElementById("divTelefono")
+
 const telefonoIngresado = divTelefono.childNodes[3]
 
 let divUsuario = document.getElementById("divUsuario")
@@ -30,33 +54,64 @@ const usuarioIngresado = divUsuario.childNodes[3]
 const servicioIngresado = document.getElementById("selectorServicio")
 
 const fechaIngresada = document.getElementById("selectorDia")
+fechaIngresada.addEventListener('change', (event)=> {
+    event.preventDefault()
+    disponibilidad(fechaIngresada.value, horaIngresada.value)})
 
 const horaIngresada = document.getElementById("selectorHorario")
+horaIngresada.addEventListener('change', (event)=> {
+    event.preventDefault()
+    disponibilidad(fechaIngresada.value, horaIngresada.value)})
 
 const formularioCompleto = document.getElementById("formulario")
+
 formularioCompleto.addEventListener('submit', (event)=>{
+
     event.preventDefault()
+
     let formatoDia = fechaIngresada.valueAsDate
+
     formatoDia.setMinutes(formatoDia.getMinutes() + formatoDia.getTimezoneOffset())
+
+    datosTurno = new Turno(nombreIngresado.value, telefonoIngresado.value, usuarioIngresado.value, servicioIngresado.value, formatoDia, horaIngresada.value)
+     
+    arrayTurnos.push(datosTurno)
+
+    fetch('https://httpbin.org/post', {
+        method: 'POST',
+        body: JSON.stringify(arrayTurnos)
+    })
+    .then((resp) =>{ 
+        console.log("posting")
+        console.log(resp.status)
+        console.log(arrayTurnos)})
+
     let pantallaForm = document.getElementById("mainTurnos")
+
     pantallaForm.classList.add("ocultarElementos")
+
     let turnoSacado = document.createElement("p")
+
     let confirmacionTurno = `Usted solicitó un turno a nombre de ${nombreIngresado.value}, teléfono ${telefonoIngresado.value}, usuario @${usuarioIngresado.value} para el servicio ${servicioIngresado.value} el día ${formatoDia.getDate()}/${formatoDia.getMonth() + 1} a las ${horaIngresada.value} hs. 
     Dentro de las próximas 48 horas recibirá una confirmación. Muchas gracias.
     `
+
     turnoSacado.innerText = confirmacionTurno
+
     turnoSacado.classList.add("parrafos", "parrafoVisible")
+
     document.getElementById("texto").append(turnoSacado)
+
     let confirmar = document.createElement("button")
+
     confirmar.innerText = "Cerrar"
+
     confirmar.classList.add("botonEnviar", "parrafoVisible", "btn-secondary", "btn-lg")
+
     turnoSacado.append(confirmar)
+    
     confirmar.addEventListener('click', ()=>{
-        datosTurno = new Turno(nombreIngresado.value, telefonoIngresado.value, usuarioIngresado.value, servicioIngresado.value, formatoDia, horaIngresada.value)
-        arrayTurnos.push(datosTurno)
-        console.log(arrayTurnos)
-        let arrayJson = JSON.stringify(arrayTurnos)
-        localStorage.setItem("turnos", arrayJson)
+       
         formularioCompleto.submit()
     })
 }) 

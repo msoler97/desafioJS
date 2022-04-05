@@ -81,8 +81,7 @@
               <div class="col-md-5 offset-sm-4 col-sm-8 offset-sm-4 campoDos" >
                 <div class="col-12">
                 <label for="formControlInput" class="form-label input">Servicio</label>
-                <select class="form-select" aria-label="Default select example" id="selectorServicio">
-                  <option selected></option>
+                <select class="form-select" aria-label="" id="selectorServicio">
                   <option value="Esculpidas">Esculpidas</option>
                   <option value="Nail Art">Nail Art</option>
                   <option value="Press On Nails">Press On</option>
@@ -94,8 +93,16 @@
                       <input type="date" class="form-control" id="selectorDia">
                     </div>
                     <div class="col-12">
-                      <label for="formControlInput" class="form-label">Selecciona un horario</label>
-                    <input type="time" class="form-control" id="selectorHorario">
+                      <label for="formControlInput" class="form-label input">Selecciona un horario</label>
+                    <select class="form-select" aria-label="" id="selectorHorario">
+                      <option type="active"> </option>
+                      <option value="10:00">10:00 hs.</option>
+                      <option value="12:00">12:00 hs.</option>
+                      <option value="14:00">14:00 hs.</option>
+                      <option value="16:00">16:00 hs.</option>
+                      <option value="18:00">18:00 hs.</option>
+                    </select>
+                  
                   </div>
                 </div>
               </div>
@@ -126,6 +133,7 @@
             <p>♥️ ¡Seguinos en instagram! <a href="https://www.instagram.com/babynail.s/?hl=es" id="instagram">@babynail.s </a> ♥️</p>
           </footer>  
           <script src="script.js"></script>
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
 </html>

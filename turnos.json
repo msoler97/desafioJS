@@ -1,0 +1,34 @@
+[
+    {
+        "nombre": "primero",
+        "telefono": "telefono",
+        "usuario": "usuario",
+        "servicio": "servicio",
+        "fecha": "2022-04-23",
+        "horario": "14:00"
+    },
+    {
+        "nombre": "segundo",
+        "telefono": "telefono",
+        "usuario": "usuario",
+        "servicio": "servicio",
+        "fecha": "2022-04-19",
+        "horario": "14:00"
+    },
+    {
+        "nombre": "tercero",
+        "telefono": "telefono",
+        "usuario": "usuario",
+        "servicio": "servicio",
+        "fecha": "2022-04-19",
+        "horario": "12:00"
+    },
+    {
+        "nombre": "cuarto",
+        "telefono": "telefono",
+        "usuario": "usuario",
+        "servicio": "servicio",
+        "fecha": "2022-04-12",
+        "horario": "10:00"
+    }
+]
