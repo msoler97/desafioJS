@@ -53,21 +53,25 @@ function disponibilidad(fecha, hora){
 let divNombre = document.getElementById("divNombre")
 
 const nombreIngresado = divNombre.childNodes[3]
+
 let divTelefono = document.getElementById("divTelefono")
 
 const telefonoIngresado = divTelefono.childNodes[3]
 
 let divUsuario = document.getElementById("divUsuario")
+
 const usuarioIngresado = divUsuario.childNodes[3]
 
 const servicioIngresado = document.getElementById("selectorServicio")
 
 const fechaIngresada = document.getElementById("selectorDia")
+
 fechaIngresada.addEventListener('change', (event)=> {
     event.preventDefault()
     disponibilidad(fechaIngresada.value, horaIngresada.value)})
 
 const horaIngresada = document.getElementById("selectorHorario")
+
 horaIngresada.addEventListener('change', (event)=> {
     event.preventDefault()
     disponibilidad(fechaIngresada.value, horaIngresada.value)})
@@ -91,9 +95,8 @@ formularioCompleto.addEventListener('submit', (event)=>{
         method: 'POST',
         body: JSON.stringify(arrayTurnos)
     })
+
     .then((resp) =>{ 
-        console.log("posting")
-        console.log(resp.status)
         console.log(arrayTurnos)})
 
     let pantallaForm = document.getElementById("mainTurnos")
